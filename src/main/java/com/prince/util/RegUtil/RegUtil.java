@@ -1,7 +1,10 @@
 package com.prince.util.RegUtil;
 
 import com.prince.util.RegUtil.constant.RegPattern;
+import com.prince.util.RegUtil.interfaces.OnMatch;
 import com.prince.util.RegUtil.matcher.Gmatcher;
+
+import java.util.List;
 
 /**
  * Created by gagaprince on 15-12-12.
@@ -48,8 +51,14 @@ public class RegUtil {
         return isMatch(RegPattern.ALL_NUM_PATTERN,des);
     }
 
-    private boolean isMatch(String pattern,String des){
+    public boolean isMatch(String pattern,String des){
         Gmatcher gMatcher = new Gmatcher(pattern,des);
         return gMatcher.isMatch();
+    }
+
+    public void getMatchs(String content,String pattern,OnMatch matcher){
+        Gmatcher gmatcher = new Gmatcher(pattern,content);
+        gmatcher.findMatch(matcher);
+
     }
 }

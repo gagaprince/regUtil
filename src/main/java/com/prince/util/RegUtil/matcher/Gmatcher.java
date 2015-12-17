@@ -1,5 +1,9 @@
 package com.prince.util.RegUtil.matcher;
 
+import com.prince.util.RegUtil.interfaces.OnMatch;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,9 +27,10 @@ public class Gmatcher {
     }
 
     private void match(){
-        pt = Pattern.compile(this.pattern);
+        pt = Pattern.compile(this.pattern,Pattern.DOTALL);
         mt = pt.matcher(this.des);
-        isMatch = mt.find();
+//        isMatch = mt.matches();
+        isMatch = mt.matches();
     }
 
     //是否匹配
@@ -44,5 +49,10 @@ public class Gmatcher {
             return mt.group(index);
         }
         return "";
+    }
+    public void findMatch(OnMatch matcher){
+        while (mt.find()) {
+            matcher.onMatch(mt);
+        }
     }
 }
